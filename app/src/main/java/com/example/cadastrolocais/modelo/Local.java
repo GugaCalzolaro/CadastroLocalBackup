@@ -1,4 +1,4 @@
-package com.example.cadastrolocais.modelo;
+/* package com.example.cadastrolocais.modelo;
 
 import java.util.Date;
 
@@ -65,4 +65,4 @@ public class Local {
     public String toString() {
         return nome;
     }
-}
+} */

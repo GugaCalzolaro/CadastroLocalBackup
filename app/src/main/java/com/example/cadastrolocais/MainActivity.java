@@ -1,130 +1,276 @@
 package com.example.cadastrolocais;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.Toast;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
+import android.widget.ImageView;
+import android.widget.TextView;
+import static android.app.Activity.RESULT_OK;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-import com.example.cadastrolocais.modelo.Local;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity {
+///////////////////////////// GPS INICIO //////////////////////////////////////////////////////
 
-    EditText editTextNome, editTextDescricao;
-    ListView listV_locais;
+import android.content.pm.PackageManager;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
-    private List<Local> listLocais = new ArrayList<Local>();
-    private ArrayAdapter<Local> arrayAdapterLocal;
 
-    Local localSelecionado;
 
+///////////////////////////// GPS FINAL  //////////////////////////////////////////////////////
+
+
+
+
+public class MainActivity extends AppCompatActivity{
+
+    ///////////////////////////// GPS INICIO //////////////////////////////////////////////////////
+    private GpsTracker gpsTracker;
+    private TextView Latitude,Longitude;
+
+    ///////////////////////////// GPS FINAL  //////////////////////////////////////////////////////
+
+    ///////////////////////////// IMAGEM INICIO //////////////////////////////////////////////////////
+
+    ///////////////////////////// IMAGEM FINAL  //////////////////////////////////////////////////////
+
+
+    EditText mTitleEt, mDescriptionEt;
+    TextView data;
+    Button mSaveBtn, mListBtn;
+
+    ProgressDialog pd;
+
+    FirebaseFirestore db;
+
+    String pId, pTitle, pDescription, pLatitude, pLongitude;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editTextNome = (EditText)findViewById(R.id.editTextNome);
-        editTextDescricao = (EditText)findViewById(R.id.editTextDescricao);
-        listV_locais = (ListView)findViewById(R.id.listV_locais);
 
-        inicializarFirebase();
-        eventoDatabase();
+        //////////// DATA E HORA INICIO ////////
+        Date currentTime = Calendar.getInstance().getTime();
+        String data_hora = DateFormat.getDateInstance(DateFormat.FULL).format(currentTime);
 
-        listV_locais.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                localSelecionado = (Local)parent.getItemAtPosition(position);
-                editTextNome.setText(localSelecionado.getNome());
-                editTextDescricao.setText(localSelecionado.getDescricao());
+        //////////// DATA E HORA FINAL ////////
+
+
+
+        ///////////////////////////// GPS INICIO //////////////////////////////////////////////////////
+        Latitude = (TextView)findViewById(R.id.rLatitudeTv);
+        Longitude = (TextView)findViewById(R.id.rLongitudeTv);
+
+        try {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
             }
-        });
-
-    }
-
-    private void eventoDatabase() {
-        databaseReference.child("Local").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                listLocais.clear();
-                for(DataSnapshot objSnapshot:dataSnapshot.getChildren()){
-                    Local l = objSnapshot.getValue(Local.class);
-                    listLocais.add(l);
-
-                }
-                arrayAdapterLocal = new ArrayAdapter<Local>(MainActivity.this,
-                        android.R.layout.simple_list_item_1,listLocais);
-                listV_locais.setAdapter(arrayAdapterLocal);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void inicializarFirebase(){
-        FirebaseApp.initializeApp(MainActivity.this);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        firebaseDatabase.setPersistenceEnabled(true);
-        databaseReference = firebaseDatabase.getReference();
-
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.menu_novo){
-
-            //Função para Mandar para o banco
-            Local l = new Local();
-            l.setId(UUID.randomUUID().toString());
-            // l.setData();
-            l.setNome(editTextNome.getText().toString());
-            l.setDescricao(editTextDescricao.getText().toString());
-            //l.setLatitude();
-            //l.setLongitude();
-            databaseReference.child("Local").child(l.getId()).setValue(l);
-            limparCampos();
-        }else if(id ==R.id.menu_editar){
-            //Edita Dados do Nome e Descr apenas
-            Local l = new Local();
-            l.setId(localSelecionado.getId());
-            l.setNome(editTextNome.getText().toString().trim());
-            l.setDescricao(editTextDescricao.getText().toString().trim());
-            databaseReference.child("Local").child(l.getId()).setValue(l);
-            limparCampos();
-        }else if (id == R.id.menu_deletar){
-            //Deleta Dados
-            Local l = new Local();
-            l.setId(localSelecionado.getId());
-            databaseReference.child("Local").child(l.getId()).removeValue();
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        return true;
+
+        ///////////////////////////// GPS FINAL  //////////////////////////////////////////////////////
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Add Data");
+
+        mTitleEt = findViewById(R.id.titleEt);
+        mDescriptionEt = findViewById(R.id.descriptionEt);
+        mSaveBtn = findViewById(R.id.saveBtn);
+        /*mListBtn = findViewById(R.id.listBtn);*/
+
+
+
+
+
+        final Bundle bundle = getIntent().getExtras();
+        if (bundle != null ){
+            // ATUALIZAR DADOS
+
+            // Atualiza o título do cabeçalho
+            actionBar.setTitle("Atualizar Local");
+
+            //Atualiza o text do botão de Salvar
+            mSaveBtn.setText("Atualizar");
+
+            //get dados
+            pId = bundle.getString("pId");
+            pTitle = bundle.getString("pTitle");
+            pDescription = bundle.getString("pDescription");
+
+
+            //set dados
+            mTitleEt.setText(pTitle);
+            mDescriptionEt.setText(pDescription);
+
+        }
+        else {
+            // ADICIONAR OS DADOS
+
+            // Atualiza o título do cabeçalho
+            actionBar.setTitle("Adicionar Local");
+
+            //Atualiza o text do botão de Salvar
+            mSaveBtn.setText("Salvar");
+        }
+
+        pd = new ProgressDialog(this);
+
+        db = FirebaseFirestore.getInstance();
+
+        //Botao para subir os dados
+        mSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle1 = getIntent().getExtras();
+                if (bundle!= null){
+                    //updating
+                    String id = pId;
+                    String title = mTitleEt.getText().toString().trim();
+                    String description = mDescriptionEt.getText().toString().trim();
+
+                    //function call to update data
+                    updateData(id, title, description);
+                    startActivity(new Intent(MainActivity.this, ListActivity.class));
+                }
+                else {
+                    //adding new
+                    String title = mTitleEt.getText().toString().trim();
+                    String description = mDescriptionEt.getText().toString().trim();
+
+                    gpsTracker = new GpsTracker(MainActivity.this);
+                    double latitude = gpsTracker.getLatitude();
+                    double longitude = gpsTracker.getLongitude();
+                    String sLatitude = String.valueOf(latitude);
+                    String sLongitude = String.valueOf(longitude);
+
+                    String horario = data_hora;
+
+                    uploadData(title, description, sLatitude, sLongitude, horario);
+                    startActivity(new Intent(MainActivity.this, ListActivity.class));
+                }
+            }
+        });
+
+        //Botão para startar a ListActivity
+/*        mListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ListActivity.class));
+                finish();
+            }
+        });*/
     }
-    private void limparCampos(){
-        editTextNome.setText("");
-        editTextDescricao.setText("");
+
+
+    /////////////////////// GPS INICIO /////////////////////
+    public void getLocation(View view){
+        gpsTracker = new GpsTracker(MainActivity.this);
+        if(gpsTracker.canGetLocation()){
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
+            Latitude.setText(String.valueOf(latitude));
+            Longitude.setText(String.valueOf(longitude));
+        }else{
+            gpsTracker.showSettingsAlert();
+        }
+    }
+    /////////////////////// GPS FINAL /////////////////////
+
+    //ATUALIZANDO DADOS NO FIRESTORE
+    private void updateData(String id, String title, String description) {
+        pd.setTitle("Atualizando locais");
+        pd.show();
+        db.collection("Documents").document(id)
+                .update("title", title, "description", description)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        //called when updated sucessfully
+                        pd.dismiss();
+                        Toast.makeText(MainActivity.this, "Seu local foi atualizado com sucesso", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //called when there is any error
+                        pd.dismiss();
+                        //get and show error message
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    //ADICIONANDO DADOS NO FIRESTORE
+    private void uploadData(String title, String description, String sLatitude, String sLongitude, String horario) {
+        pd.setTitle("Adicionando dados no Firestore...");
+        pd.show();
+        //Gera ID aleatório
+        String id = UUID.randomUUID().toString();
+
+        Map<String, Object> doc = new HashMap<>();
+        doc.put("id", id);
+        doc.put("title", title);
+        doc.put("description", description);
+        doc.put("latitude", sLatitude);
+        doc.put("longitude", sLongitude);
+        doc.put("horario", horario);
+
+
+        db.collection("Documents").document(id).set(doc)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        pd.dismiss();
+                        Toast.makeText(MainActivity.this, "Salvando Locais", Toast.LENGTH_SHORT);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        pd.dismiss();
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                    }
+                });
     }
 }

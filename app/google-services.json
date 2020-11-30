@@ -1,42 +1,71 @@
 {
   "project_info": {
-    "project_number": "1086692044618",
-    "firebase_url": "https://cadastrolocais.firebaseio.com",
-    "project_id": "cadastrolocais",
-    "storage_bucket": "cadastrolocais.appspot.com"
+    "project_number": "647418896181",
+    "firebase_url": "https://location-places-f601b.firebaseio.com",
+    "project_id": "location-places-f601b",
+    "storage_bucket": "location-places-f601b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1086692044618:android:64d3042aa02ed872331bb3",
+        "mobilesdk_app_id": "1:647418896181:android:a6eee894dbb8d52878f67c",
         "android_client_info": {
           "package_name": "com.example.cadastrolocais"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1086692044618-kjij2d56c2ombnggjo8d47otblf8pth8.apps.googleusercontent.com",
+          "client_id": "647418896181-t16hr2r0ukv19gqtmahksjifvu86in95.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.cadastrolocais",
-            "certificate_hash": "686db2b6a108e7aefd2235929fb1eb33f618e9f0"
+            "certificate_hash": "c403084a6d83011f4533dea89afe859627247b28"
           }
         },
         {
-          "client_id": "1086692044618-mvp37tf8upvor7c16kg9j3rc4onsfv2h.apps.googleusercontent.com",
+          "client_id": "647418896181-9nec16t2tlr641emk2vhervao0pf1pe1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA3zzNtR1T_1Sn_vSYwZOhk0YoNqRyrQ-Y"
+          "current_key": "AIzaSyC4usH6S6ozZJNOqsdSVgf8o8apgKeq-JY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1086692044618-mvp37tf8upvor7c16kg9j3rc4onsfv2h.apps.googleusercontent.com",
+              "client_id": "647418896181-9nec16t2tlr641emk2vhervao0pf1pe1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647418896181:android:6f0bb1754419c52078f67c",
+        "android_client_info": {
+          "package_name": "com.example.location_places"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647418896181-9nec16t2tlr641emk2vhervao0pf1pe1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4usH6S6ozZJNOqsdSVgf8o8apgKeq-JY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647418896181-9nec16t2tlr641emk2vhervao0pf1pe1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

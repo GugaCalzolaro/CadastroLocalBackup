@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fundoPadrao"
     android:orientation="vertical"
+    android:padding="10dp"
+
     tools:context=".MainActivity">
 
+
     <EditText
-        android:id="@+id/editTextNome"
+        android:id="@+id/titleEt"
+        android:layout_marginTop="10dp"
+        android:background="@color/fundoPadrao"
+        android:padding="10dp"
+        android:inputType="text"
+        android:hint="Local"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/descriptionEt"
+        android:layout_margin="2dp"
+        android:background="@color/fundoPadrao"
+        android:padding="10dp"
+        android:inputType="textMultiLine|textCapSentences"
+        android:hint="Descrição do Local"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Nome do Local"
-        android:layout_marginTop="175dp"/>
+        android:minHeight="250dp"
+        android:gravity="start" />
 
-    <EditText
-        android:id="@+id/editTextDescricao"
-        android:layout_width="match_parent"
-        android:layout_height="194dp"
-        android:ems="10"
-        android:hint="Descreva o Local"
-        android:inputType="textEmailAddress" />
 
-    <ListView
-        android:id="@+id/listV_locais"
-        android:layout_width="match_parent"
-        android:layout_height="266dp" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Voltar" ></Button>
+        android:id="@+id/saveBtn"
+        android:text="Salvar"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:radius="10dp"
+        />
+    />
+    <!--    <Button
+            android:id="@+id/listBtn"
+            android:text="Load"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>-->
 
 </LinearLayout>
