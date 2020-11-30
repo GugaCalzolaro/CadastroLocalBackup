@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1086692044618",
+    "firebase_url": "https://cadastrolocais.firebaseio.com",
+    "project_id": "cadastrolocais",
+    "storage_bucket": "cadastrolocais.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086692044618:android:64d3042aa02ed872331bb3",
+        "android_client_info": {
+          "package_name": "com.example.cadastrolocais"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086692044618-kjij2d56c2ombnggjo8d47otblf8pth8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cadastrolocais",
+            "certificate_hash": "686db2b6a108e7aefd2235929fb1eb33f618e9f0"
+          }
+        },
+        {
+          "client_id": "1086692044618-mvp37tf8upvor7c16kg9j3rc4onsfv2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3zzNtR1T_1Sn_vSYwZOhk0YoNqRyrQ-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086692044618-mvp37tf8upvor7c16kg9j3rc4onsfv2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
