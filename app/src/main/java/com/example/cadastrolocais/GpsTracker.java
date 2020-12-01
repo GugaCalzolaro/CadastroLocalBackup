@@ -22,26 +22,26 @@ import androidx.core.app.ActivityCompat;
 class GpsTracker extends Service implements LocationListener {
     private final Context mContext;
 
-    // flag for GPS status
+    // Para saber se gps esta ativado
     boolean isGPSEnabled = false;
 
-    // flag for network status
+    // Para saber se esta conectado a internet
     boolean isNetworkEnabled = false;
 
-    // flag for GPS status
+    // para saber o status do Gps
     boolean canGetLocation = false;
 
     Location location; // location
     double latitude; // latitude
     double longitude; // longitude
 
-    // The minimum distance to change Updates in meters
+    // A m distância minima atualizada em metros
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
 
-    // The minimum time between updates in milliseconds
+    // O tempo minimo para atualização em milisegundos
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
 
-    // Declaring a Location Manager
+    // Declarando a Location Manager
     protected LocationManager locationManager;
 
     public GpsTracker(Context context) {
@@ -53,20 +53,20 @@ class GpsTracker extends Service implements LocationListener {
         try {
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
-            // getting GPS status
+            // pegando o status do GPS
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-            // getting network status
+            // pegando o status da conexão
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
-                // no network provider is enabled
+                // sem dispositvo de conexão ativo
             } else {
                 this.canGetLocation = true;
                 // First get location from Network Provider
                 if (isNetworkEnabled) {
-                    //check the network permission
+                    //verificar permissao de internet
                     if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions((Activity) mContext, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
                     }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent"
     android:background="@color/fundoPadrao"
     android:orientation="vertical"
@@ -16,6 +17,7 @@
         android:background="@color/fundoPadrao"
         android:padding="10dp"
         android:inputType="text"
+        android:textColorHint="@color/azulescuro"
         android:hint="Local"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -25,6 +27,7 @@
         android:layout_margin="2dp"
         android:background="@color/fundoPadrao"
         android:padding="10dp"
+        android:textColorHint="@color/azulescuro"
         android:inputType="textMultiLine|textCapSentences"
         android:hint="Descrição do Local"
         android:layout_width="match_parent"
@@ -38,10 +41,19 @@
         android:id="@+id/saveBtn"
         android:text="Salvar"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
+        android:background="@color/fundoFaixa"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:radius="10dp"
         />
+    <!-- <Button
+        android:id="@+id/voltarBtn"
+        android:text="Voltar"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:radius="10dp"
+        /> -->
     />
     <!--    <Button
             android:id="@+id/listBtn"

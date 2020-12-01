@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,12 +29,10 @@ public class ListActivity extends AppCompatActivity {
     List<Model> modelList = new ArrayList<>();
     RecyclerView mRecyclerView;
 
-    // Gerenciamento de Layoutna Recycler View
     RecyclerView.LayoutManager layoutManager;
 
-    FloatingActionButton mAddBtn;
+    Button mAddBtn;
 
-    //Instâncias FireStore
     FirebaseFirestore db;
 
     CustomAdapter adapter;
@@ -45,27 +44,21 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        //actionbar and its title
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Locais Cadastrados");
 
 
-        //Iniciar FireStore
         db = FirebaseFirestore.getInstance();
 
-        //initialize views
         mRecyclerView = findViewById(R.id.recycler_view);
         mAddBtn = findViewById(R.id.addBtn);
 
-        //set recycler view properties
         mRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        //init Progress Dialog
         pd = new ProgressDialog(this);
 
-        // show data in recyclerView
         showData();
 
         mAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -78,20 +71,16 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void showData() {
-        //set title of progress dialog
         pd.setTitle("Aguarde, os locais estão sendo carregados");
-        //show progress dialog
         pd.show();
 
-        db.collection("Documents")
+        db.collection("locais2")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         modelList.clear();
-                        //called when data is retrieved
                         pd.dismiss();
-                        //show data
                         for (DocumentSnapshot doc: task.getResult()){
                             Model model = new Model(doc.getString("id"),
                                     doc.getString("title"),
@@ -102,10 +91,7 @@ public class ListActivity extends AppCompatActivity {
 
                             modelList.add(model);
                         }
-                        //adapter
                         adapter = new CustomAdapter(ListActivity.this, modelList);
-                        //adapter = new CustomAdapter(ListActivity.this, modelList);
-                        //set adapter to recycler view
                         mRecyclerView.setAdapter(adapter);
 
 
@@ -114,7 +100,6 @@ public class ListActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        //called when there is any error while retireving
                         pd.dismiss();
 
                         Toast.makeText(ListActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -127,12 +112,11 @@ public class ListActivity extends AppCompatActivity {
 
         pd.setTitle("O local está sendo deletado");
         pd.show();
-        db.collection("Documents").document(modelList.get(index).getId())
+        db.collection("locais2").document(modelList.get(index).getId())
                 .delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        //Se deletar com sucesso:
                         Toast.makeText(ListActivity.this, "Seu local foi excluído com sucesso!", Toast.LENGTH_SHORT).show();
                         showData();
                     }
@@ -141,7 +125,6 @@ public class ListActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pd.dismiss();
-                        //Se der erro ao deletar
                         Toast.makeText(ListActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

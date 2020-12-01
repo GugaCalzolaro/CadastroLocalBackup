@@ -17,7 +17,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
         mView = itemView;
 
-        //Clique simples
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,7 +25,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        //Clique longo
         itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -35,7 +33,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        //Inicializa as views com o Model_Layout.xml
         mTitleTv = itemView.findViewById(R.id.rTitleTv);
         mDescriptionTv = itemView.findViewById(R.id.rDescriptionTv);
         mLatitudeTv = itemView.findViewById(R.id.rLatitudeTv);
@@ -45,7 +42,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     private ViewHolder.ClickListener mClickListener;
 
-    //Interface para o Click Listener
     public interface ClickListener{
         void onItemClick(View view, int position);
         void onItemLongClick(View view, int position);

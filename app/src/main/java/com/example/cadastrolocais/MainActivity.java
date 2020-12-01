@@ -35,7 +35,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -52,50 +51,32 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-
-
-///////////////////////////// GPS FINAL  //////////////////////////////////////////////////////
-
-
-
-
 public class MainActivity extends AppCompatActivity{
 
-    ///////////////////////////// GPS INICIO //////////////////////////////////////////////////////
+
     private GpsTracker gpsTracker;
     private TextView Latitude,Longitude;
 
-    ///////////////////////////// GPS FINAL  //////////////////////////////////////////////////////
-
-    ///////////////////////////// IMAGEM INICIO //////////////////////////////////////////////////////
-
-    ///////////////////////////// IMAGEM FINAL  //////////////////////////////////////////////////////
 
 
     EditText mTitleEt, mDescriptionEt;
     TextView data;
-    Button mSaveBtn, mListBtn;
+    Button mSaveBtn, mVoltarBtn;
 
     ProgressDialog pd;
 
     FirebaseFirestore db;
 
-    String pId, pTitle, pDescription, pLatitude, pLongitude;
+    String pId, pTitle, pDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //////////// DATA E HORA INICIO ////////
         Date currentTime = Calendar.getInstance().getTime();
         String data_hora = DateFormat.getDateInstance(DateFormat.FULL).format(currentTime);
 
-        //////////// DATA E HORA FINAL ////////
-
-
-
-        ///////////////////////////// GPS INICIO //////////////////////////////////////////////////////
         Latitude = (TextView)findViewById(R.id.rLatitudeTv);
         Longitude = (TextView)findViewById(R.id.rLongitudeTv);
 
@@ -107,8 +88,6 @@ public class MainActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
-        ///////////////////////////// GPS FINAL  //////////////////////////////////////////////////////
-
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Add Data");
@@ -116,40 +95,31 @@ public class MainActivity extends AppCompatActivity{
         mTitleEt = findViewById(R.id.titleEt);
         mDescriptionEt = findViewById(R.id.descriptionEt);
         mSaveBtn = findViewById(R.id.saveBtn);
-        /*mListBtn = findViewById(R.id.listBtn);*/
-
-
-
+        //mVoltarBtn = findViewById(R.id.voltarBtn);
 
 
         final Bundle bundle = getIntent().getExtras();
         if (bundle != null ){
-            // ATUALIZAR DADOS
 
-            // Atualiza o título do cabeçalho
             actionBar.setTitle("Atualizar Local");
 
-            //Atualiza o text do botão de Salvar
             mSaveBtn.setText("Atualizar");
+           // mVoltarBtn.setText("Voltar");
 
-            //get dados
             pId = bundle.getString("pId");
             pTitle = bundle.getString("pTitle");
             pDescription = bundle.getString("pDescription");
 
 
-            //set dados
             mTitleEt.setText(pTitle);
             mDescriptionEt.setText(pDescription);
 
         }
         else {
-            // ADICIONAR OS DADOS
 
-            // Atualiza o título do cabeçalho
+
             actionBar.setTitle("Adicionar Local");
 
-            //Atualiza o text do botão de Salvar
             mSaveBtn.setText("Salvar");
         }
 
@@ -157,23 +127,19 @@ public class MainActivity extends AppCompatActivity{
 
         db = FirebaseFirestore.getInstance();
 
-        //Botao para subir os dados
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle1 = getIntent().getExtras();
                 if (bundle!= null){
-                    //updating
                     String id = pId;
                     String title = mTitleEt.getText().toString().trim();
                     String description = mDescriptionEt.getText().toString().trim();
 
-                    //function call to update data
                     updateData(id, title, description);
                     startActivity(new Intent(MainActivity.this, ListActivity.class));
                 }
                 else {
-                    //adding new
                     String title = mTitleEt.getText().toString().trim();
                     String description = mDescriptionEt.getText().toString().trim();
 
@@ -191,18 +157,9 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        //Botão para startar a ListActivity
-/*        mListBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ListActivity.class));
-                finish();
-            }
-        });*/
     }
 
 
-    /////////////////////// GPS INICIO /////////////////////
     public void getLocation(View view){
         gpsTracker = new GpsTracker(MainActivity.this);
         if(gpsTracker.canGetLocation()){
@@ -214,13 +171,11 @@ public class MainActivity extends AppCompatActivity{
             gpsTracker.showSettingsAlert();
         }
     }
-    /////////////////////// GPS FINAL /////////////////////
 
-    //ATUALIZANDO DADOS NO FIRESTORE
     private void updateData(String id, String title, String description) {
         pd.setTitle("Atualizando locais");
         pd.show();
-        db.collection("Documents").document(id)
+        db.collection("locais2").document(id)
                 .update("title", title, "description", description)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -241,11 +196,9 @@ public class MainActivity extends AppCompatActivity{
                 });
     }
 
-    //ADICIONANDO DADOS NO FIRESTORE
     private void uploadData(String title, String description, String sLatitude, String sLongitude, String horario) {
         pd.setTitle("Adicionando dados no Firestore...");
         pd.show();
-        //Gera ID aleatório
         String id = UUID.randomUUID().toString();
 
         Map<String, Object> doc = new HashMap<>();
@@ -257,7 +210,7 @@ public class MainActivity extends AppCompatActivity{
         doc.put("horario", horario);
 
 
-        db.collection("Documents").document(id).set(doc)
+        db.collection("locais2").document(id).set(doc)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

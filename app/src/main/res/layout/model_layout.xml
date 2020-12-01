@@ -12,19 +12,22 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="375dp"
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:id="@+id/linearLayout"
+            android:background="@color/fundoFaixa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:orientation="vertical">
@@ -36,7 +39,15 @@
                     android:text="Local"
                     android:layout_marginTop="8dp"
                     android:textColor="#000"
-                    android:textSize="25sp" />
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/rDescriptionTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Descricao"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/rDataTv"
@@ -46,29 +57,21 @@
                     android:text="Data"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/rDescriptionTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Descriptionreal"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18sp" />
+
 
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:columnCount="2"
                     android:rowCount="2"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Latitude: "
-                        android:textSize="15sp"
-                        android:textColor="#000"
+                        android:textSize="15dp"
                         />
 
                     <TextView
@@ -76,17 +79,14 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/rLatitudeTv"
                         android:text="Latitude real"
-                        android:textSize="15sp"
-                        android:textColor="#000"
-
+                        android:textSize="15dp"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Longitude: "
-                        android:textSize="15sp"
-                        android:textColor="#000"
+                        android:textSize="15dp"
 
 
                         />
@@ -96,8 +96,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/rLongitudeTv"
                         android:text="Longitude real"
-                        android:textSize="15sp"
-                        android:textColor="#000"
+                        android:textSize="15dp"
 
                         />
 

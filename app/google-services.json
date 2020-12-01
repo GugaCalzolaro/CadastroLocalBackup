@@ -47,7 +47,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:647418896181:android:6f0bb1754419c52078f67c",
         "android_client_info": {
-          "package_name": "com.example.location_places"
+          "package_name": "com.example.cadastrolocais"
         }
       },
       "oauth_client": [
