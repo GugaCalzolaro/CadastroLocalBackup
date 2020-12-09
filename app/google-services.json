@@ -1,21 +1,20 @@
 {
   "project_info": {
-    "project_number": "647418896181",
-    "firebase_url": "https://location-places-f601b.firebaseio.com",
-    "project_id": "location-places-f601b",
-    "storage_bucket": "location-places-f601b.appspot.com"
+    "project_number": "145852019061",
+    "project_id": "projetolocaisexpo",
+    "storage_bucket": "projetolocaisexpo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:647418896181:android:a6eee894dbb8d52878f67c",
+        "mobilesdk_app_id": "1:145852019061:android:a541425a8eee4c774ee33c",
         "android_client_info": {
           "package_name": "com.example.cadastrolocais"
         }
       },
       "oauth_client": [
         {
-          "client_id": "647418896181-t16hr2r0ukv19gqtmahksjifvu86in95.apps.googleusercontent.com",
+          "client_id": "145852019061-0j781qchj52vk5r4v3uudk8k01ldbvba.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.cadastrolocais",
@@ -23,49 +22,20 @@
           }
         },
         {
-          "client_id": "647418896181-9nec16t2tlr641emk2vhervao0pf1pe1.apps.googleusercontent.com",
+          "client_id": "145852019061-ogr5megu39763s7hbu7plcmnc4u2pfuh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC4usH6S6ozZJNOqsdSVgf8o8apgKeq-JY"
+          "current_key": "AIzaSyBnv7QWNJM43XIl3pL9bP77Rc-Gfzyb6_o"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "647418896181-9nec16t2tlr641emk2vhervao0pf1pe1.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:647418896181:android:6f0bb1754419c52078f67c",
-        "android_client_info": {
-          "package_name": "com.example.cadastrolocais"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "647418896181-9nec16t2tlr641emk2vhervao0pf1pe1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC4usH6S6ozZJNOqsdSVgf8o8apgKeq-JY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "647418896181-9nec16t2tlr641emk2vhervao0pf1pe1.apps.googleusercontent.com",
+              "client_id": "145852019061-ogr5megu39763s7hbu7plcmnc4u2pfuh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
