@@ -34,7 +34,7 @@ public class ListActivity extends AppCompatActivity {
 
     Button mAddBtn;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
 
     CustomAdapter adapter;
 
@@ -49,7 +49,7 @@ public class ListActivity extends AppCompatActivity {
         actionBar.setTitle("Locais Cadastrados");
 
 
-
+        db = FirebaseFirestore.getInstance();
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mAddBtn = findViewById(R.id.addBtn);

@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity{
 
     ProgressDialog pd;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
 
     String pId, pTitle, pDescription;
 
@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity{
         }
 
         pd = new ProgressDialog(this);
+
+        db = FirebaseFirestore.getInstance();
 
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
