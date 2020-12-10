@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity{
 
     ProgressDialog pd;
 
-    FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String pId, pTitle, pDescription;
 
@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity{
 
         pd = new ProgressDialog(this);
 
-        db = FirebaseFirestore.getInstance();
-
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,7 +173,7 @@ public class MainActivity extends AppCompatActivity{
     private void updateData(String id, String title, String description) {
         pd.setTitle("Atualizando locais");
         pd.show();
-        db.collection("locais2").document(id)
+        db.collection("Documents").document(id)
                 .update("title", title, "description", description)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -210,7 +208,7 @@ public class MainActivity extends AppCompatActivity{
         doc.put("horario", horario);
 
 
-        db.collection("locais2").document(id).set(doc)
+        db.collection("Documents").document(id).set(doc)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

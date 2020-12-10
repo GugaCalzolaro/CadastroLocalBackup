@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ListActivity extends AppCompatActivity {
 
     Button mAddBtn;
 
-    FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     CustomAdapter adapter;
 
@@ -48,7 +49,7 @@ public class ListActivity extends AppCompatActivity {
         actionBar.setTitle("Locais Cadastrados");
 
 
-        db = FirebaseFirestore.getInstance();
+
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mAddBtn = findViewById(R.id.addBtn);
@@ -74,7 +75,7 @@ public class ListActivity extends AppCompatActivity {
         pd.setTitle("Aguarde, os locais estão sendo carregados");
         pd.show();
 
-        db.collection("locais2")
+        db.collection("Documents")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -112,7 +113,7 @@ public class ListActivity extends AppCompatActivity {
 
         pd.setTitle("O local está sendo deletado");
         pd.show();
-        db.collection("locais2").document(modelList.get(index).getId())
+        db.collection("Documents").document(modelList.get(index).getId())
                 .delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
